@@ -28,13 +28,13 @@ namespace :phrase do
 
   desc "Push your Localizable.strings files to PhraseApp"
   task :push do
-    result = `phrase push ./resources`
+    result = `phrase push --recursive ./resources`
     App.info "PHRASE", result
   end
 
   desc "Pull your current localization files files from PhraseApp"
   task :pull do
-    result = `phrase pull --target=./resources --format=strings`
+    result = `phrase pull --target=resources --format=strings`
     App.info "PHRASE", result
   end
 end
