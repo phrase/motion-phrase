@@ -20,7 +20,7 @@ private
   def create_phrase_config_file
     return unless @auth_token
 
-    if config_file_exists? or config_file_content_outdated?
+    if !config_file_exists? or config_file_content_outdated?
       File.open(CONFIG_FILE, 'w') { |f| f.write(config_file_content) }
     end
     files = @config.files.flatten
@@ -32,7 +32,7 @@ private
   end
 
   def config_file_content_outdated?
-    File.read(CONFIG_FILE) != config_file_content
+    config_file_exists? && File.read(CONFIG_FILE) != config_file_content
   end
 
   def config_file_content
