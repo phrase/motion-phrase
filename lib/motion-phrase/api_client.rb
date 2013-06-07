@@ -9,8 +9,8 @@ module MotionPhrase
     end
 
     def storeTranslation(keyName, content, fallbackContent, currentLocale)
-      return unless development?
-      
+      return unless auth_token_present?
+
       content ||= fallbackContent
       data = {
         locale: currentLocale,
@@ -30,10 +30,6 @@ module MotionPhrase
     end
 
   private
-    def development?
-      RUBYMOTION_ENV == "development"
-    end
-
     def client 
       @client ||= buildClient
     end
@@ -50,7 +46,19 @@ module MotionPhrase
     end
 
     def authenticated(params={})
-      params.merge(auth_token: PHRASE_AUTH_TOKEN)
-    end      
+      params.merge(auth_token: auth_token)
+    end
+
+    def auth_token
+      if defined?(PHRASE_AUTH_TOKEN)
+        PHRASE_AUTH_TOKEN 
+      else
+        nil
+      end
+    end
+
+    def auth_token_present?
+      !auth_token.nil? && auth_token != ""
+    end
   end
 end

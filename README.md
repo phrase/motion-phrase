@@ -36,12 +36,18 @@ Add the Auth Token to your application's Rakefile:
 
 	Motion::Project::App.setup do |app|
 	  app.name = "Test Application"
-	  . . .
-	  app.phrase.auth_token = "YOUR_AUTH_TOKEN"
-	  . . .
+	  
+	  app.development do
+	    app.phrase do
+	      app.phrase.enabled = true
+	      app.phrase.auth_token = "YOUR_AUTH_TOKEN"
+	    end
+	  end
 	end
 
-This will automatically create the `phrase_config.rb` configuration file in your app folder during the first build process.
+This will automatically create the `phrase_config.rb` configuration file in your app folder during every build process. 
+
+**Please make sure that you only enable PhraseApp in development mode and never in release mode!**
 
 Now you can initialize your PhraseApp setup using rake:
 
@@ -77,7 +83,6 @@ or (when using a fallback translation):
 Of course you can use more generic names for your keys as well, such as:
 
 	"HOME_WELCOME_BUTTON_LABEL".__
-	
 
 	
 [Learn more about localization in iOS](https://developer.apple.com/internationalization/)
@@ -136,5 +141,5 @@ Please remember the following hints (especially when something goes wrong):
 
 ## Support
 
-* [PhraseApp documentation](https://phraseapp.com/docs)
+* [PhraseApp Documentation](https://phraseapp.com/docs)
 * [PhraseApp Support Channel](https://phraseapp.com/support)

@@ -1,7 +1,7 @@
 class NSString
   def _localized(value=nil, table=nil)
     @localized = NSBundle.mainBundle.localizedStringForKey(self, value:value, table:table)
-    storeTranslation(self, @localized, value, table) if development?
+    storeTranslation(self, @localized, value, table) if phraseEnabled?
     @localized
   end
   alias __ _localized
@@ -12,8 +12,12 @@ private
     @client.storeTranslation(key, localized, defaultValue, currentLocaleName)
   end
 
+  def phraseEnabled?
+    PHRASE_ENABLED == true && development?
+  end
+
   def development?
-    RUBYMOTION_ENV == "development"
+    App.development?
   end
 
   def currentLocaleName
