@@ -30,14 +30,15 @@ module MotionPhrase
     end
 
   private
-    def client 
+    def client
       @client ||= buildClient
     end
 
     def buildClient
       AFMotion::Client.build_shared(API_BASE_URI) do
         header "Accept", "application/json"
-        operation :json
+        request_serializer :json
+        response_serializer :json
       end
     end
 
@@ -51,7 +52,7 @@ module MotionPhrase
 
     def auth_token
       if defined?(PHRASE_AUTH_TOKEN)
-        PHRASE_AUTH_TOKEN 
+        PHRASE_AUTH_TOKEN
       else
         nil
       end
