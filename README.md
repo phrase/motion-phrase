@@ -28,22 +28,25 @@ Or install it yourself as:
     
 Require the gem (unless you use bundler):
 
-	require 'motion-phrase'
+```ruby
+require 'motion-phrase'
+```
     
 ### Configure PhraseApp
 
 Add the Auth Token to your application's Rakefile:
 
-	Motion::Project::App.setup do |app|
-	  app.name = "Test Application"
-	  
-	  app.development do
-	    app.phrase do
-	      app.phrase.enabled = true
-	      app.phrase.auth_token = "YOUR_AUTH_TOKEN"
-	    end
-	  end
-	end
+```ruby
+Motion::Project::App.setup do |app|
+  app.name = "Test Application"
+  app.development do
+    app.phrase do
+      app.phrase.enabled = true
+      app.phrase.auth_token = "YOUR_AUTH_TOKEN"
+    end
+  end
+end
+```
 
 This will automatically create the `phrase_config.rb` configuration file in your app folder during every build process. 
 
@@ -51,7 +54,9 @@ This will automatically create the `phrase_config.rb` configuration file in your
 
 Now you can initialize your PhraseApp setup using rake:
 
-	rake phrase:init AUTH_TOKEN=YOUR_AUTH_TOKEN
+```bash
+rake phrase:init AUTH_TOKEN=YOUR_AUTH_TOKEN
+```
 	
 This will:
 
@@ -70,20 +75,27 @@ Using PhraseApp with motion-phrase enables you to:
 
 The first step towards a localized app is to localize all strings by extending them with their localized counterparts. This can be done by simply calling the `#__` method on each string that is implemented by motion-phrase:
 
-	"Hello World"
+```ruby
+"Hello World"
+```
 	
 now becomes:
 
-	"Hello World".__
+```ruby
+"Hello World".__
+```
 	
 or (when using a fallback translation):
-	
-	"Hello World".__("My fallback translation")
+
+```ruby	
+"Hello World".__("My fallback translation")
+```
 	
 Of course you can use more generic names for your keys as well, such as:
 
-	"HOME_WELCOME_BUTTON_LABEL".__
-
+```ruby
+"HOME_WELCOME_BUTTON_LABEL".__
+```
 	
 [Learn more about localization in iOS](https://developer.apple.com/internationalization/)
 
@@ -95,7 +107,9 @@ Simply build and run your app (in the simulator). When in development mode, moti
 
 If you already have localization files in place, you can transmit them to PhraseApp by using the following rake command:
 
-	rake phrase:push
+```bash
+rake phrase:push
+```
 	
 Simply execute this from inside your project directory and it will upload all Localizable.strings files that are found in your `resources` folder. All new keys and translation will be created in your PhraseApp project during the upload.
 
@@ -103,7 +117,9 @@ Simply execute this from inside your project directory and it will upload all Lo
 
 Of course you want to include all recent translations in your application before releasing or testing it. Simply fetch all translations from PhraseApp using rake:
 
-	rake phrase:pull
+```bash
+rake phrase:pull
+```
 	
 This will download and replace all existing Localizable.strings files that sit in your `resources` folder. You can now build/test/release your application with the most recent localization files.
 
