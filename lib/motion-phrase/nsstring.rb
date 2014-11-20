@@ -16,11 +16,26 @@ private
     PHRASE_ENABLED == true && development?
   end
 
-  def development?
-    App.development?
+  def currentLocaleName
+    currentLocale.localeIdentifier
   end
 
-  def currentLocaleName
-    App.current_locale.localeIdentifier
+  # @return [NSLocale] locale of user settings
+  def currentLocale
+    languages = NSLocale.preferredLanguages
+    if languages.count > 0
+      return NSLocale.alloc.initWithLocaleIdentifier(languages.first)
+    else
+      return NSLocale.currentLocale
+    end
   end
+
+  def environment
+    RUBYMOTION_ENV
+  end
+
+  def development?
+    environment == 'development'
+  end
+
 end

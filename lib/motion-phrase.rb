@@ -4,7 +4,6 @@ end
 
 require "motion/project/phrase"
 require "motion-cocoapods"
-require "bubble-wrap"
 
 Motion::Project::App.setup do |app|
   Dir.glob(File.join(File.dirname(__FILE__), 'motion-phrase/**/*.rb')).each do |file|
