@@ -20,26 +20,23 @@ module MotionPhrase
         skip_verification: true,
         api_client: API_CLIENT_IDENTIFIER,
       }
-      client.post("translations/store", authenticated(data)) do |result|
-        if result.success?
-          log "Translation stored [#{data.inspect}]"
-        elsif result.failure?
-          log "Error while storing translation [#{data.inspect}]"
-        end
-      end
+
+      client.POST("translations/store", parameters:authenticated(data), success:lambda {|task, responseObject|
+        log "Translation stored [#{data.inspect}]"
+      }, failure:lambda {|task, error|
+        log "Error while storing translation [#{data.inspect}]"
+      })
     end
 
   private
     def client
-      @client ||= buildClient
-    end
-
-    def buildClient
-      AFMotion::Client.build_shared(API_BASE_URI) do
-        header "Accept", "application/json"
-        request_serializer :json
-        response_serializer :json
+      Dispatch.once do
+        @client = begin
+          _client = AFHTTPSessionManager.alloc.initWithBaseURL(API_BASE_URI)
+          _client
+        end
       end
+      @client
     end
 
     def log(msg="")
