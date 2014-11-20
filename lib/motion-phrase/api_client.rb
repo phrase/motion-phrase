@@ -32,7 +32,7 @@ module MotionPhrase
     def client
       Dispatch.once do
         @client = begin
-          _client = AFHTTPSessionManager.alloc.initWithBaseURL(API_BASE_URI)
+          _client = AFHTTPSessionManager.alloc.initWithBaseURL(NSURL.URLWithString(API_BASE_URI))
           _client
         end
       end
