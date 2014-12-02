@@ -4,8 +4,6 @@ end
 
 require "motion/project/phrase"
 require "motion-cocoapods"
-require "bubble-wrap"
-require "afmotion"
 
 Motion::Project::App.setup do |app|
   Dir.glob(File.join(File.dirname(__FILE__), 'motion-phrase/**/*.rb')).each do |file|
@@ -15,7 +13,7 @@ Motion::Project::App.setup do |app|
   app.files.unshift("./app/phrase_config.rb")
   
   app.pods do
-    pod 'AFNetworking'
+    pod 'AFNetworking', '>= 2.5.0'
   end
 end
 
