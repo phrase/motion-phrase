@@ -13,7 +13,7 @@ Motion::Project::App.setup do |app|
   app.files.unshift("./app/phrase_config.rb")
   
   app.pods do
-    pod 'AFNetworking', '>= 2.5.0'
+    pod 'AFNetworking', :git => "https://github.com/AFNetworking/AFNetworking.git"
   end
 end
 
